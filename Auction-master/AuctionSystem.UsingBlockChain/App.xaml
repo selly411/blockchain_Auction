@@ -1,0 +1,14 @@
+﻿<Application x:Class="AuctionSystem.UsingBlockChain.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:AuctionSystem.UsingBlockChain"
+             StartupUri="/View/MainWindowView.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/AuctionSystem.UsingBlockChain;component/ResourceDictionary/ColorResourceDictionary.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/AuctionSystem.UsingBlockChain;component/ResourceDictionary/ToolDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

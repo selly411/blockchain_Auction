@@ -1,0 +1,1234 @@
+﻿<UserControl x:Class="AuctionSystem.UsingBlockChain.View.GoodsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ext="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:sr="clr-namespace:AuctionSystem.UsingBlockChain.StringResource"
+        xmlns:View="clr-namespace:AuctionSystem.UsingBlockChain.View"
+        xmlns:Converter="clr-namespace:AuctionSystem.UsingBlockChain.Converter"
+        mc:Ignorable="d"
+        Width="1200" Height="676" MinWidth="1200" MinHeight="676"
+        x:Name="goods">
+    <UserControl.Resources>
+        <Converter:EnumToGoodsTypeConverter x:Key="EnumToGoodsStateConverter"/>
+        <ControlTemplate x:Key="PageIndexRadioBtn" TargetType="RadioButton">
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Style="{StaticResource TextBlockListIndexStyle}" Text="{TemplateBinding Content}" />
+            </Grid>
+        </ControlTemplate>
+        <ControlTemplate x:Key="PageIndexRadioBtnOver" TargetType="RadioButton">
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Background="{StaticResource GrayColor}" MinWidth="20">
+                <TextBlock Style="{StaticResource TextBlockListIndexStyle}" Foreground="{StaticResource WhiteColor}" Text="{TemplateBinding Content}" />
+            </Grid>
+        </ControlTemplate>
+    </UserControl.Resources>
+    <ext:BusyIndicator IsBusy="{Binding IsBusy}">
+        <Grid Background="{StaticResource WhiteColor}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="30"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Command="{Binding CreateAuctionViewCommand}">
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource CheckButtonStyle}">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                                    <Setter Property="Height" Value="30"/>
+                                    <Setter Property="Content" Value="{x:Static sr:Resource.CreateAuction}"/>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                        <Button Command="{Binding RefreshGoodsItemsCommand}" Margin="10,0">
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource CheckButtonStyle}">
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                                    <Setter Property="Height" Value="30"/>
+                                    <Setter Property="Content" Value="새로고침"/>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <StackPanel>
+                        <WrapPanel>
+                            <StackPanel Width="273">
+                                <Grid Height="205" Background="White">
+                                    <Image Source="{Binding GoodsList[0].Image}" Stretch="Fill"/>
+                                    <Button Margin="0,175,0,0" Command="{Binding ChangeGoodsDetailViewCommand}" CommandParameter="{Binding GoodsList[0]}">
+                                        <Button.Style>
+                                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource DetailButtonStyle}">
+                                                <Setter Property="Width" Value="273"/>
+                                                <Setter Property="Content" Value="{x:Static sr:Resource.TradingDone}" />
+                                                <Setter Property="IsEnabled" Value="True"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding GoodsList[0].State}" Value="Before">
+                                                        <Setter Property="Content" Value="{x:Static sr:Resource.TradingBefore}" />
+                                                        <Setter Property="IsEnabled" Value="False"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding GoodsList[0].State}" Value="Ing">
+                                                        <Setter Property="Content" Value="{x:Static sr:Resource.Trading}" />
+                                                        <Setter Property="IsEnabled" Value="True"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+                                </Grid>
+                                <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" Height="20">
+                                    <TextBlock.Style>
+                                        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                            <Setter Property="FontSize" Value="14"/>
+                                            <Setter Property="FontWeight" Value="Heavy"/>
+                                            <Setter Property="Text" Value="{Binding GoodsList[0].GoodsName, Mode=TwoWay}"/>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="220"/>
+                                        <ColumnDefinition Width="53"/>
+                                    </Grid.ColumnDefinitions>
+                                    <WrapPanel Grid.Column="0" Height="20" Margin="0,10,0,0">
+                                        <TextBlock>
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                    <Setter Property="FontSize" Value="12"/>
+                                                    <Setter Property="Width" Value="100"/>
+                                                    <Setter Property="Text" Value="{x:Static sr:Resource.LastDay}"/>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                        <TextBlock>
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                    <Setter Property="FontSize" Value="12"/>
+                                                    <Setter Property="Width" Value="10"/>
+                                                    <Setter Property="Text" Value="{x:Static sr:Resource.Separator}"/>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                        <TextBlock>
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                    <Setter Property="FontSize" Value="12"/>
+                                                    <Setter Property="Text" Value="{Binding GoodsList[0].EndTime}"/>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </WrapPanel>
+                                    <Grid Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,3,0">
+                                        <Rectangle RadiusX="5" RadiusY="5" Fill="{StaticResource DdayBoxcolor}" Height="20" Width="50">
+                                            <Rectangle.Style>
+                                                <Style TargetType="{x:Type Rectangle}">
+                                                    <Setter Property="Visibility" Value="Hidden"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding GoodsList[0].Deadline}" Value="True">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Rectangle.Style>
+                                        </Rectangle>
+                                        <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <TextBlock>
+                                                <TextBlock.Style>
+                                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource ButtonTextBlockStyle}">
+                                                        <Setter Property="FontSize" Value="12"/>
+                                                        <Setter Property="FontWeight" Value="Bold"/>
+                                                        <Setter Property="Text" Value="D-"/>
+                                                        <Setter Property="Visibility" Value="Hidden"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding GoodsList[0].Deadline}" Value="True">
+                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                            <TextBlock>
+                                                <TextBlock.Style>
+                                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource ButtonTextBlockStyle}">
+                                                        <Setter Property="FontSize" Value="12"/>
+                                                        <Setter Property="FontWeight" Value="Bold"/>
+                                                        <Setter Property="Text" Value="{Binding GoodsList[0].Dday}"/>
+                                                        <Setter Property="Visibility" Value="Hidden"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding GoodsList[0].Deadline}" Value="True">
+                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </WrapPanel>
+                                    </Grid>
+                                </Grid>
+                                <WrapPanel Margin="0,0,0,10" Height="20">
+                                    <TextBlock>
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                <Setter Property="FontSize" Value="12"/>
+                                                <Setter Property="Width" Value="100"/>
+                                                <Setter Property="Text" Value="{x:Static sr:Resource.GoodsCurrentPrice}"/>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                    <TextBlock>
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                <Setter Property="FontSize" Value="12"/>
+                                                <Setter Property="Width" Value="10"/>
+                                                <Setter Property="Text" Value="{x:Static sr:Resource.Separator}"/>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                    <TextBlock>
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                <Setter Property="FontSize" Value="12"/>
+                                                <Setter Property="Text" Value="{Binding GoodsList[0].CurrentPrice, Mode=TwoWay}"/>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </WrapPanel>
+                            </StackPanel>
+                            <StackPanel Width="273" Margin="16,0,0,0">
+                                <Grid Height="205" Background="White">
+                                    <Image Source="{Binding GoodsList[1].Image}" Stretch="Fill"/>
+                                    <Button Margin="0,175,0,0" Command="{Binding ChangeGoodsDetailViewCommand}" CommandParameter="{Binding GoodsList[1]}">
+                                        <Button.Style>
+                                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource DetailButtonStyle}">
+                                                <Setter Property="Width" Value="273"/>
+                                                <Setter Property="Content" Value="{x:Static sr:Resource.TradingDone}" />
+                                                <Setter Property="IsEnabled" Value="True"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding GoodsList[1].State}" Value="Before">
+                                                        <Setter Property="Content" Value="{x:Static sr:Resource.TradingBefore}" />
+                                                        <Setter Property="IsEnabled" Value="False"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding GoodsList[1].State}" Value="Ing">
+                                                        <Setter Property="Content" Value="{x:Static sr:Resource.Trading}" />
+                                                        <Setter Property="IsEnabled" Value="True"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+                                </Grid>
+                                <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" Height="20">
+                                    <TextBlock.Style>
+                                        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                            <Setter Property="FontSize" Value="14"/>
+                                            <Setter Property="FontWeight" Value="Heavy"/>
+                                            <Setter Property="Text" Value="{Binding GoodsList[1].GoodsName, Mode=TwoWay}"/>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="220"/>
+                                        <ColumnDefinition Width="53"/>
+                                    </Grid.ColumnDefinitions>
+                                    <WrapPanel Grid.Column="0" Height="20" Margin="0,10,0,0">
+                                        <TextBlock>
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                    <Setter Property="FontSize" Value="12"/>
+                                                    <Setter Property="Width" Value="100"/>
+                                                    <Setter Property="Text" Value="{x:Static sr:Resource.LastDay}"/>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                        <TextBlock>
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                    <Setter Property="FontSize" Value="12"/>
+                                                    <Setter Property="Width" Value="10"/>
+                                                    <Setter Property="Text" Value="{x:Static sr:Resource.Separator}"/>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                        <TextBlock>
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                    <Setter Property="FontSize" Value="12"/>
+                                                    <Setter Property="Text" Value="{Binding GoodsList[1].EndTime}"/>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </WrapPanel>
+                                    <Grid Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,3,0">
+                                        <Rectangle RadiusX="5" RadiusY="5" Fill="{StaticResource DdayBoxcolor}" Height="20" Width="50">
+                                            <Rectangle.Style>
+                                                <Style TargetType="{x:Type Rectangle}">
+                                                    <Setter Property="Visibility" Value="Hidden"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding GoodsList[1].Deadline}" Value="True">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Rectangle.Style>
+                                        </Rectangle>
+                                        <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <TextBlock>
+                                                <TextBlock.Style>
+                                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource ButtonTextBlockStyle}">
+                                                        <Setter Property="FontSize" Value="12"/>
+                                                        <Setter Property="FontWeight" Value="Bold"/>
+                                                        <Setter Property="Text" Value="D-"/>
+                                                        <Setter Property="Visibility" Value="Hidden"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding GoodsList[1].Deadline}" Value="True">
+                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                            <TextBlock>
+                                                <TextBlock.Style>
+                                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource ButtonTextBlockStyle}">
+                                                        <Setter Property="FontSize" Value="12"/>
+                                                        <Setter Property="FontWeight" Value="Bold"/>
+                                                        <Setter Property="Text" Value="{Binding GoodsList[1].Dday}"/>
+                                                        <Setter Property="Visibility" Value="Hidden"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding GoodsList[1].Deadline}" Value="True">
+                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </WrapPanel>
+                                    </Grid>
+                                </Grid>
+                                <WrapPanel Margin="0,0,0,10" Height="20">
+                                    <TextBlock>
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                <Setter Property="FontSize" Value="12"/>
+                                                <Setter Property="Width" Value="100"/>
+                                                <Setter Property="Text" Value="{x:Static sr:Resource.GoodsCurrentPrice}"/>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                    <TextBlock>
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                <Setter Property="FontSize" Value="12"/>
+                                                <Setter Property="Width" Value="10"/>
+                                                <Setter Property="Text" Value="{x:Static sr:Resource.Separator}"/>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                    <TextBlock>
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                <Setter Property="FontSize" Value="12"/>
+                                                <Setter Property="Text" Value="{Binding GoodsList[1].CurrentPrice, Mode=TwoWay}"/>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </WrapPanel>
+                            </StackPanel>
+                            <StackPanel Width="273" Margin="16,0,0,0">
+                                <Grid Height="205" Background="White">
+                                    <Image Source="{Binding GoodsList[2].Image}" Stretch="Fill"/>
+                                    <Button Margin="0,175,0,0" Command="{Binding ChangeGoodsDetailViewCommand}" CommandParameter="{Binding GoodsList[2]}">
+                                        <Button.Style>
+                                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource DetailButtonStyle}">
+                                                <Setter Property="Width" Value="273"/>
+                                                <Setter Property="Content" Value="{x:Static sr:Resource.TradingDone}" />
+                                                <Setter Property="IsEnabled" Value="True"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding GoodsList[2].State}" Value="Before">
+                                                        <Setter Property="Content" Value="{x:Static sr:Resource.TradingBefore}" />
+                                                        <Setter Property="IsEnabled" Value="False"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding GoodsList[2].State}" Value="Ing">
+                                                        <Setter Property="Content" Value="{x:Static sr:Resource.Trading}" />
+                                                        <Setter Property="IsEnabled" Value="True"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+                                </Grid>
+                                <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" Height="20">
+                                    <TextBlock.Style>
+                                        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                            <Setter Property="FontSize" Value="14"/>
+                                            <Setter Property="FontWeight" Value="Heavy"/>
+                                            <Setter Property="Text" Value="{Binding GoodsList[2].GoodsName, Mode=TwoWay}"/>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="220"/>
+                                        <ColumnDefinition Width="53"/>
+                                    </Grid.ColumnDefinitions>
+                                    <WrapPanel Grid.Column="0" Height="20" Margin="0,10,0,0">
+                                        <TextBlock>
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                    <Setter Property="FontSize" Value="12"/>
+                                                    <Setter Property="Width" Value="100"/>
+                                                    <Setter Property="Text" Value="{x:Static sr:Resource.LastDay}"/>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                        <TextBlock>
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                    <Setter Property="FontSize" Value="12"/>
+                                                    <Setter Property="Width" Value="10"/>
+                                                    <Setter Property="Text" Value="{x:Static sr:Resource.Separator}"/>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                        <TextBlock>
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                    <Setter Property="FontSize" Value="12"/>
+                                                    <Setter Property="Text" Value="{Binding GoodsList[2].EndTime}"/>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </WrapPanel>
+                                    <Grid Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,3,0">
+                                        <Rectangle RadiusX="5" RadiusY="5" Fill="{StaticResource DdayBoxcolor}" Height="20" Width="50">
+                                            <Rectangle.Style>
+                                                <Style TargetType="{x:Type Rectangle}">
+                                                    <Setter Property="Visibility" Value="Hidden"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding GoodsList[2].Deadline}" Value="True">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Rectangle.Style>
+                                        </Rectangle>
+                                        <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <TextBlock>
+                                                <TextBlock.Style>
+                                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource ButtonTextBlockStyle}">
+                                                        <Setter Property="FontSize" Value="12"/>
+                                                        <Setter Property="FontWeight" Value="Bold"/>
+                                                        <Setter Property="Text" Value="D-"/>
+                                                        <Setter Property="Visibility" Value="Hidden"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding GoodsList[2].Deadline}" Value="True">
+                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                            <TextBlock>
+                                                <TextBlock.Style>
+                                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource ButtonTextBlockStyle}">
+                                                        <Setter Property="FontSize" Value="12"/>
+                                                        <Setter Property="FontWeight" Value="Bold"/>
+                                                        <Setter Property="Text" Value="{Binding GoodsList[2].Dday}"/>
+                                                        <Setter Property="Visibility" Value="Hidden"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding GoodsList[2].Deadline}" Value="True">
+                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </WrapPanel>
+                                    </Grid>
+                                </Grid>
+                                <WrapPanel Margin="0,0,0,10" Height="20">
+                                    <TextBlock>
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                <Setter Property="FontSize" Value="12"/>
+                                                <Setter Property="Width" Value="100"/>
+                                                <Setter Property="Text" Value="{x:Static sr:Resource.GoodsCurrentPrice}"/>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                    <TextBlock>
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                <Setter Property="FontSize" Value="12"/>
+                                                <Setter Property="Width" Value="10"/>
+                                                <Setter Property="Text" Value="{x:Static sr:Resource.Separator}"/>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                    <TextBlock>
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                <Setter Property="FontSize" Value="12"/>
+                                                <Setter Property="Text" Value="{Binding GoodsList[2].CurrentPrice, Mode=TwoWay}"/>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </WrapPanel>
+                            </StackPanel>
+                            <StackPanel Width="273" Margin="16,0,0,0">
+                                <Grid Height="205" Background="White">
+                                    <Image Source="{Binding GoodsList[3].Image}" Stretch="Fill"/>
+                                    <Button Margin="0,175,0,0" Command="{Binding ChangeGoodsDetailViewCommand}" CommandParameter="{Binding GoodsList[3]}">
+                                        <Button.Style>
+                                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource DetailButtonStyle}">
+                                                <Setter Property="Width" Value="273"/>
+                                                <Setter Property="Content" Value="{x:Static sr:Resource.TradingDone}" />
+                                                <Setter Property="IsEnabled" Value="True"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding GoodsList[3].State}" Value="Before">
+                                                        <Setter Property="Content" Value="{x:Static sr:Resource.TradingBefore}" />
+                                                        <Setter Property="IsEnabled" Value="False"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding GoodsList[3].State}" Value="Ing">
+                                                        <Setter Property="Content" Value="{x:Static sr:Resource.Trading}" />
+                                                        <Setter Property="IsEnabled" Value="True"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+                                </Grid>
+                                <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" Height="20">
+                                    <TextBlock.Style>
+                                        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                            <Setter Property="FontSize" Value="14"/>
+                                            <Setter Property="FontWeight" Value="Heavy"/>
+                                            <Setter Property="Text" Value="{Binding GoodsList[3].GoodsName, Mode=TwoWay}"/>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="220"/>
+                                        <ColumnDefinition Width="53"/>
+                                    </Grid.ColumnDefinitions>
+                                    <WrapPanel Grid.Column="0" Height="20" Margin="0,10,0,0">
+                                        <TextBlock>
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                    <Setter Property="FontSize" Value="12"/>
+                                                    <Setter Property="Width" Value="100"/>
+                                                    <Setter Property="Text" Value="{x:Static sr:Resource.LastDay}"/>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                        <TextBlock>
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                    <Setter Property="FontSize" Value="12"/>
+                                                    <Setter Property="Width" Value="10"/>
+                                                    <Setter Property="Text" Value="{x:Static sr:Resource.Separator}"/>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                        <TextBlock>
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                    <Setter Property="FontSize" Value="12"/>
+                                                    <Setter Property="Text" Value="{Binding GoodsList[3].EndTime}"/>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </WrapPanel>
+                                    <Grid Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,3,0">
+                                        <Rectangle RadiusX="5" RadiusY="5" Fill="{StaticResource DdayBoxcolor}" Height="20" Width="50">
+                                            <Rectangle.Style>
+                                                <Style TargetType="{x:Type Rectangle}">
+                                                    <Setter Property="Visibility" Value="Hidden"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding GoodsList[3].Deadline}" Value="True">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Rectangle.Style>
+                                        </Rectangle>
+                                        <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <TextBlock>
+                                                <TextBlock.Style>
+                                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource ButtonTextBlockStyle}">
+                                                        <Setter Property="FontSize" Value="12"/>
+                                                        <Setter Property="FontWeight" Value="Bold"/>
+                                                        <Setter Property="Text" Value="D-"/>
+                                                        <Setter Property="Visibility" Value="Hidden"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding GoodsList[3].Deadline}" Value="True">
+                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                            <TextBlock>
+                                                <TextBlock.Style>
+                                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource ButtonTextBlockStyle}">
+                                                        <Setter Property="FontSize" Value="12"/>
+                                                        <Setter Property="FontWeight" Value="Bold"/>
+                                                        <Setter Property="Text" Value="{Binding GoodsList[3].Dday}"/>
+                                                        <Setter Property="Visibility" Value="Hidden"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding GoodsList[3].Deadline}" Value="True">
+                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </WrapPanel>
+                                    </Grid>
+                                </Grid>
+                                <WrapPanel Margin="0,0,0,10" Height="20">
+                                    <TextBlock>
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                <Setter Property="FontSize" Value="12"/>
+                                                <Setter Property="Width" Value="100"/>
+                                                <Setter Property="Text" Value="{x:Static sr:Resource.GoodsCurrentPrice}"/>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                    <TextBlock>
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                <Setter Property="FontSize" Value="12"/>
+                                                <Setter Property="Width" Value="10"/>
+                                                <Setter Property="Text" Value="{x:Static sr:Resource.Separator}"/>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                    <TextBlock>
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                <Setter Property="FontSize" Value="12"/>
+                                                <Setter Property="Text" Value="{Binding GoodsList[3].CurrentPrice, Mode=TwoWay}"/>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </WrapPanel>
+                            </StackPanel>
+                        </WrapPanel>
+                        <WrapPanel Margin="0,16,0,0">
+                            <StackPanel Width="273">
+                                <Grid Height="205" Background="White">
+                                    <Image Source="{Binding GoodsList[4].Image}" Stretch="Fill"/>
+                                    <Button Margin="0,175,0,0" Command="{Binding ChangeGoodsDetailViewCommand}" CommandParameter="{Binding GoodsList[4]}">
+                                        <Button.Style>
+                                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource DetailButtonStyle}">
+                                                <Setter Property="Width" Value="273"/>
+                                                <Setter Property="Content" Value="{x:Static sr:Resource.TradingDone}" />
+                                                <Setter Property="IsEnabled" Value="True"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding GoodsList[4].State}" Value="Before">
+                                                        <Setter Property="Content" Value="{x:Static sr:Resource.TradingBefore}" />
+                                                        <Setter Property="IsEnabled" Value="False"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding GoodsList[4].State}" Value="Ing">
+                                                        <Setter Property="Content" Value="{x:Static sr:Resource.Trading}" />
+                                                        <Setter Property="IsEnabled" Value="True"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+                                </Grid>
+                                <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" Height="20">
+                                    <TextBlock.Style>
+                                        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                            <Setter Property="FontSize" Value="14"/>
+                                            <Setter Property="FontWeight" Value="Heavy"/>
+                                            <Setter Property="Text" Value="{Binding GoodsList[4].GoodsName, Mode=TwoWay}"/>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="220"/>
+                                        <ColumnDefinition Width="53"/>
+                                    </Grid.ColumnDefinitions>
+                                    <WrapPanel Grid.Column="0" Height="20" Margin="0,10,0,0">
+                                        <TextBlock>
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                    <Setter Property="FontSize" Value="12"/>
+                                                    <Setter Property="Width" Value="100"/>
+                                                    <Setter Property="Text" Value="{x:Static sr:Resource.LastDay}"/>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                        <TextBlock>
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                    <Setter Property="FontSize" Value="12"/>
+                                                    <Setter Property="Width" Value="10"/>
+                                                    <Setter Property="Text" Value="{x:Static sr:Resource.Separator}"/>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                        <TextBlock>
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                    <Setter Property="FontSize" Value="12"/>
+                                                    <Setter Property="Text" Value="{Binding GoodsList[4].EndTime}"/>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </WrapPanel>
+                                    <Grid Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,3,0">
+                                        <Rectangle RadiusX="5" RadiusY="5" Fill="{StaticResource DdayBoxcolor}" Height="20" Width="50">
+                                            <Rectangle.Style>
+                                                <Style TargetType="{x:Type Rectangle}">
+                                                    <Setter Property="Visibility" Value="Hidden"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding GoodsList[4].Deadline}" Value="True">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Rectangle.Style>
+                                        </Rectangle>
+                                        <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <TextBlock>
+                                                <TextBlock.Style>
+                                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource ButtonTextBlockStyle}">
+                                                        <Setter Property="FontSize" Value="12"/>
+                                                        <Setter Property="FontWeight" Value="Bold"/>
+                                                        <Setter Property="Text" Value="D-"/>
+                                                        <Setter Property="Visibility" Value="Hidden"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding GoodsList[4].Deadline}" Value="True">
+                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                            <TextBlock>
+                                                <TextBlock.Style>
+                                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource ButtonTextBlockStyle}">
+                                                        <Setter Property="FontSize" Value="12"/>
+                                                        <Setter Property="FontWeight" Value="Bold"/>
+                                                        <Setter Property="Text" Value="{Binding GoodsList[4].Dday}"/>
+                                                        <Setter Property="Visibility" Value="Hidden"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding GoodsList[4].Deadline}" Value="True">
+                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </WrapPanel>
+                                    </Grid>
+                                </Grid>
+                                <WrapPanel Margin="0,0,0,10" Height="20">
+                                    <TextBlock>
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                <Setter Property="FontSize" Value="12"/>
+                                                <Setter Property="Width" Value="100"/>
+                                                <Setter Property="Text" Value="{x:Static sr:Resource.GoodsCurrentPrice}"/>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                    <TextBlock>
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                <Setter Property="FontSize" Value="12"/>
+                                                <Setter Property="Width" Value="10"/>
+                                                <Setter Property="Text" Value="{x:Static sr:Resource.Separator}"/>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                    <TextBlock>
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                <Setter Property="FontSize" Value="12"/>
+                                                <Setter Property="Text" Value="{Binding GoodsList[4].CurrentPrice, Mode=TwoWay}"/>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </WrapPanel>
+                            </StackPanel>
+                            <StackPanel Width="273" Margin="16,0,0,0">
+                                <Grid Height="205" Background="White">
+                                    <Image Source="{Binding GoodsList[5].Image}" Stretch="Fill"/>
+                                    <Button Margin="0,175,0,0" Command="{Binding ChangeGoodsDetailViewCommand}" CommandParameter="{Binding GoodsList[5]}">
+                                        <Button.Style>
+                                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource DetailButtonStyle}">
+                                                <Setter Property="Width" Value="273"/>
+                                                <Setter Property="Content" Value="{x:Static sr:Resource.TradingDone}" />
+                                                <Setter Property="IsEnabled" Value="True"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding GoodsList[5].State}" Value="Before">
+                                                        <Setter Property="Content" Value="{x:Static sr:Resource.TradingBefore}" />
+                                                        <Setter Property="IsEnabled" Value="False"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding GoodsList[5].State}" Value="Ing">
+                                                        <Setter Property="Content" Value="{x:Static sr:Resource.Trading}" />
+                                                        <Setter Property="IsEnabled" Value="True"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+                                </Grid>
+                                <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" Height="20">
+                                    <TextBlock.Style>
+                                        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                            <Setter Property="FontSize" Value="14"/>
+                                            <Setter Property="FontWeight" Value="Heavy"/>
+                                            <Setter Property="Text" Value="{Binding GoodsList[5].GoodsName, Mode=TwoWay}"/>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="220"/>
+                                        <ColumnDefinition Width="53"/>
+                                    </Grid.ColumnDefinitions>
+                                    <WrapPanel Grid.Column="0" Height="20" Margin="0,10,0,0">
+                                        <TextBlock>
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                    <Setter Property="FontSize" Value="12"/>
+                                                    <Setter Property="Width" Value="100"/>
+                                                    <Setter Property="Text" Value="{x:Static sr:Resource.LastDay}"/>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                        <TextBlock>
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                    <Setter Property="FontSize" Value="12"/>
+                                                    <Setter Property="Width" Value="10"/>
+                                                    <Setter Property="Text" Value="{x:Static sr:Resource.Separator}"/>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                        <TextBlock>
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                    <Setter Property="FontSize" Value="12"/>
+                                                    <Setter Property="Text" Value="{Binding GoodsList[5].EndTime}"/>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </WrapPanel>
+                                    <Grid Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,3,0">
+                                        <Rectangle RadiusX="5" RadiusY="5" Fill="{StaticResource DdayBoxcolor}" Height="20" Width="50">
+                                            <Rectangle.Style>
+                                                <Style TargetType="{x:Type Rectangle}">
+                                                    <Setter Property="Visibility" Value="Hidden"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding GoodsList[5].Deadline}" Value="True">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Rectangle.Style>
+                                        </Rectangle>
+                                        <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <TextBlock>
+                                                <TextBlock.Style>
+                                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource ButtonTextBlockStyle}">
+                                                        <Setter Property="FontSize" Value="12"/>
+                                                        <Setter Property="FontWeight" Value="Bold"/>
+                                                        <Setter Property="Text" Value="D-"/>
+                                                        <Setter Property="Visibility" Value="Hidden"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding GoodsList[5].Deadline}" Value="True">
+                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                            <TextBlock>
+                                                <TextBlock.Style>
+                                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource ButtonTextBlockStyle}">
+                                                        <Setter Property="FontSize" Value="12"/>
+                                                        <Setter Property="FontWeight" Value="Bold"/>
+                                                        <Setter Property="Text" Value="{Binding GoodsList[5].Dday}"/>
+                                                        <Setter Property="Visibility" Value="Hidden"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding GoodsList[5].Deadline}" Value="True">
+                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </WrapPanel>
+                                    </Grid>
+                                </Grid>
+                                <WrapPanel Margin="0,0,0,10" Height="20">
+                                    <TextBlock>
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                <Setter Property="FontSize" Value="12"/>
+                                                <Setter Property="Width" Value="100"/>
+                                                <Setter Property="Text" Value="{x:Static sr:Resource.GoodsCurrentPrice}"/>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                    <TextBlock>
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                <Setter Property="FontSize" Value="12"/>
+                                                <Setter Property="Width" Value="10"/>
+                                                <Setter Property="Text" Value="{x:Static sr:Resource.Separator}"/>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                    <TextBlock>
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                <Setter Property="FontSize" Value="12"/>
+                                                <Setter Property="Text" Value="{Binding GoodsList[5].CurrentPrice, Mode=TwoWay}"/>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </WrapPanel>
+                            </StackPanel>
+                            <StackPanel Width="273" Margin="16,0,0,0">
+                                <Grid Height="205" Background="White">
+                                    <Image Source="{Binding GoodsList[6].Image}" Stretch="Fill"/>
+                                    <Button Margin="0,175,0,0" Command="{Binding ChangeGoodsDetailViewCommand}" CommandParameter="{Binding GoodsList[6]}">
+                                        <Button.Style>
+                                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource DetailButtonStyle}">
+                                                <Setter Property="Width" Value="273"/>
+                                                <Setter Property="Content" Value="{x:Static sr:Resource.TradingDone}" />
+                                                <Setter Property="IsEnabled" Value="True"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding GoodsList[6].State}" Value="Before">
+                                                        <Setter Property="Content" Value="{x:Static sr:Resource.TradingBefore}" />
+                                                        <Setter Property="IsEnabled" Value="False"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding GoodsList[6].State}" Value="Ing">
+                                                        <Setter Property="Content" Value="{x:Static sr:Resource.Trading}" />
+                                                        <Setter Property="IsEnabled" Value="True"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+                                </Grid>
+                                <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" Height="20">
+                                    <TextBlock.Style>
+                                        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                            <Setter Property="FontSize" Value="14"/>
+                                            <Setter Property="FontWeight" Value="Heavy"/>
+                                            <Setter Property="Text" Value="{Binding GoodsList[6].GoodsName, Mode=TwoWay}"/>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="220"/>
+                                        <ColumnDefinition Width="53"/>
+                                    </Grid.ColumnDefinitions>
+                                    <WrapPanel Grid.Column="0" Height="20" Margin="0,10,0,0">
+                                        <TextBlock>
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                    <Setter Property="FontSize" Value="12"/>
+                                                    <Setter Property="Width" Value="100"/>
+                                                    <Setter Property="Text" Value="{x:Static sr:Resource.LastDay}"/>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                        <TextBlock>
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                    <Setter Property="FontSize" Value="12"/>
+                                                    <Setter Property="Width" Value="10"/>
+                                                    <Setter Property="Text" Value="{x:Static sr:Resource.Separator}"/>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                        <TextBlock>
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                    <Setter Property="FontSize" Value="12"/>
+                                                    <Setter Property="Text" Value="{Binding GoodsList[6].EndTime}"/>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </WrapPanel>
+                                    <Grid Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,3,0">
+                                        <Rectangle RadiusX="5" RadiusY="5" Fill="{StaticResource DdayBoxcolor}" Height="20" Width="50">
+                                            <Rectangle.Style>
+                                                <Style TargetType="{x:Type Rectangle}">
+                                                    <Setter Property="Visibility" Value="Hidden"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding GoodsList[6].Deadline}" Value="True">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Rectangle.Style>
+                                        </Rectangle>
+                                        <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <TextBlock>
+                                                <TextBlock.Style>
+                                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource ButtonTextBlockStyle}">
+                                                        <Setter Property="FontSize" Value="12"/>
+                                                        <Setter Property="FontWeight" Value="Bold"/>
+                                                        <Setter Property="Text" Value="D-"/>
+                                                        <Setter Property="Visibility" Value="Hidden"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding GoodsList[6].Deadline}" Value="True">
+                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                            <TextBlock>
+                                                <TextBlock.Style>
+                                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource ButtonTextBlockStyle}">
+                                                        <Setter Property="FontSize" Value="12"/>
+                                                        <Setter Property="FontWeight" Value="Bold"/>
+                                                        <Setter Property="Text" Value="{Binding GoodsList[6].Dday}"/>
+                                                        <Setter Property="Visibility" Value="Hidden"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding GoodsList[6].Deadline}" Value="True">
+                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </WrapPanel>
+                                    </Grid>
+                                </Grid>
+                                <WrapPanel Margin="0,0,0,10" Height="20">
+                                    <TextBlock>
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                <Setter Property="FontSize" Value="12"/>
+                                                <Setter Property="Width" Value="100"/>
+                                                <Setter Property="Text" Value="{x:Static sr:Resource.GoodsCurrentPrice}"/>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                    <TextBlock>
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                <Setter Property="FontSize" Value="12"/>
+                                                <Setter Property="Width" Value="10"/>
+                                                <Setter Property="Text" Value="{x:Static sr:Resource.Separator}"/>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                    <TextBlock>
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                <Setter Property="FontSize" Value="12"/>
+                                                <Setter Property="Text" Value="{Binding GoodsList[6].CurrentPrice, Mode=TwoWay}"/>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </WrapPanel>
+                            </StackPanel>
+                            <StackPanel Width="273" Margin="16,0,0,0">
+                                <Grid Height="205" Background="White">
+                                    <Image Source="{Binding GoodsList[7].Image}" Stretch="Fill"/>
+                                    <Button Margin="0,175,0,0" Command="{Binding ChangeGoodsDetailViewCommand}" CommandParameter="{Binding GoodsList[7]}">
+                                        <Button.Style>
+                                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource DetailButtonStyle}">
+                                                <Setter Property="Width" Value="273"/>
+                                                <Setter Property="Content" Value="{x:Static sr:Resource.TradingDone}" />
+                                                <Setter Property="IsEnabled" Value="True"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding GoodsList[7].State}" Value="Before">
+                                                        <Setter Property="Content" Value="{x:Static sr:Resource.TradingBefore}" />
+                                                        <Setter Property="IsEnabled" Value="False"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding GoodsList[7].State}" Value="Ing">
+                                                        <Setter Property="Content" Value="{x:Static sr:Resource.Trading}" />
+                                                        <Setter Property="IsEnabled" Value="True"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+                                </Grid>
+                                <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" Height="20">
+                                    <TextBlock.Style>
+                                        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                            <Setter Property="FontSize" Value="14"/>
+                                            <Setter Property="FontWeight" Value="Heavy"/>
+                                            <Setter Property="Text" Value="{Binding GoodsList[7].GoodsName, Mode=TwoWay}"/>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="220"/>
+                                        <ColumnDefinition Width="53"/>
+                                    </Grid.ColumnDefinitions>
+                                    <WrapPanel Grid.Column="0" Height="20" Margin="0,10,0,0">
+                                        <TextBlock>
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                    <Setter Property="FontSize" Value="12"/>
+                                                    <Setter Property="Width" Value="100"/>
+                                                    <Setter Property="Text" Value="{x:Static sr:Resource.LastDay}"/>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                        <TextBlock>
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                    <Setter Property="FontSize" Value="12"/>
+                                                    <Setter Property="Width" Value="10"/>
+                                                    <Setter Property="Text" Value="{x:Static sr:Resource.Separator}"/>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                        <TextBlock>
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                    <Setter Property="FontSize" Value="12"/>
+                                                    <Setter Property="Text" Value="{Binding GoodsList[7].EndTime}"/>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </WrapPanel>
+                                    <Grid Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,3,0">
+                                        <Rectangle RadiusX="5" RadiusY="5" Fill="{StaticResource DdayBoxcolor}" Height="20" Width="50">
+                                            <Rectangle.Style>
+                                                <Style TargetType="{x:Type Rectangle}">
+                                                    <Setter Property="Visibility" Value="Hidden"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding GoodsList[7].Deadline}" Value="True">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Rectangle.Style>
+                                        </Rectangle>
+                                        <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <TextBlock>
+                                                <TextBlock.Style>
+                                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource ButtonTextBlockStyle}">
+                                                        <Setter Property="FontSize" Value="12"/>
+                                                        <Setter Property="FontWeight" Value="Bold"/>
+                                                        <Setter Property="Text" Value="D-"/>
+                                                        <Setter Property="Visibility" Value="Hidden"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding GoodsList[7].Deadline}" Value="True">
+                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                            <TextBlock>
+                                                <TextBlock.Style>
+                                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource ButtonTextBlockStyle}">
+                                                        <Setter Property="FontSize" Value="12"/>
+                                                        <Setter Property="FontWeight" Value="Bold"/>
+                                                        <Setter Property="Text" Value="{Binding GoodsList[7].Dday}"/>
+                                                        <Setter Property="Visibility" Value="Hidden"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding GoodsList[7].Deadline}" Value="True">
+                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </WrapPanel>
+                                    </Grid>
+                                </Grid>
+                                <WrapPanel Margin="0,0,0,10" Height="20">
+                                    <TextBlock>
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                <Setter Property="FontSize" Value="12"/>
+                                                <Setter Property="Width" Value="100"/>
+                                                <Setter Property="Text" Value="{x:Static sr:Resource.GoodsCurrentPrice}"/>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                    <TextBlock>
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                <Setter Property="FontSize" Value="12"/>
+                                                <Setter Property="Width" Value="10"/>
+                                                <Setter Property="Text" Value="{x:Static sr:Resource.Separator}"/>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                    <TextBlock>
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                                <Setter Property="FontSize" Value="12"/>
+                                                <Setter Property="Text" Value="{Binding GoodsList[7].CurrentPrice, Mode=TwoWay}"/>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </WrapPanel>
+                            </StackPanel>
+                        </WrapPanel>
+                    </StackPanel>
+                </Grid>
+                <ListView Grid.Row="2" Margin="0,10,0,0" Style="{StaticResource ListViewHorizontalStyle}" ItemsSource="{Binding PageIndexList}">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel IsItemsHost="True" />
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource GridViewItemHorizontalStyle}"/>
+                    </ListView.ItemContainerStyle>
+                    <ListView.View>
+                        <GridView ColumnHeaderContainerStyle="{StaticResource GridViewCollapsedColumnHeaderStyle}">
+                            <GridViewColumn Width="35">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <RadioButton Content="{Binding PageSeq}" Command="{Binding DataContext.PagePopupCommand, ElementName=goods}" CommandParameter="{Binding PageSeq}">
+                                            <RadioButton.Style>
+                                                <Style TargetType="RadioButton">
+                                                    <Setter Property="Template" Value="{DynamicResource PageIndexRadioBtn}"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsChecked}" Value="true">
+                                                            <Setter Property="Template" Value="{DynamicResource PageIndexRadioBtnOver}" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </RadioButton.Style>
+                                        </RadioButton>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </Grid>
+    </ext:BusyIndicator>
+</UserControl>

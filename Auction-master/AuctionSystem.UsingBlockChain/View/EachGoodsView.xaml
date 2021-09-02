@@ -1,0 +1,364 @@
+﻿<UserControl x:Class="AuctionSystem.UsingBlockChain.View.EachGoodsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ext="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:sr="clr-namespace:AuctionSystem.UsingBlockChain.StringResource"
+        xmlns:View="clr-namespace:AuctionSystem.UsingBlockChain.View"
+        xmlns:Converter="clr-namespace:AuctionSystem.UsingBlockChain.Converter"
+        mc:Ignorable="d"
+        Width="1200" Height="746" MinWidth="1200" MinHeight="746">
+    <UserControl.Resources>
+        <Converter:EnumToGoodsJewelryTypeConverter x:Key="EnumToGoodsJewelryTypeConverter"/>
+        <Converter:EnumToGoodsRareTypeConverter x:Key="EnumToGoodsRareTypeConverter"/>
+    </UserControl.Resources>
+    <ext:BusyIndicator IsBusy="{Binding IsBusy}">
+        <Grid Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="500"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="620"/>
+                    <ColumnDefinition Width="30"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="1">
+                    <TextBlock>
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                <Setter Property="FontSize" Value="18"/>
+                                <Setter Property="Text" Value="{x:Static sr:Resource.BidDetail}"/>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                    <ListView Grid.Row="2" Style="{StaticResource ListViewStyle}" Margin="0,10,0,0" ItemsSource="{Binding GoodsBidDetailList}">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource GridViewItemStyle}">
+                                <Setter Property="Background" Value="{StaticResource LoginBackgroundColor}"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding MyBid}" Value="true">
+                                        <Setter Property="Background" Value="{StaticResource GoldColor}"/>
+                                        <Setter Property="Foreground" Value="{StaticResource BlackColor}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView ColumnHeaderContainerStyle="{StaticResource GridViewColumnHeaderStyle}" >
+                                <GridViewColumn Width="350" Header="입찰자" DisplayMemberBinding="{Binding BidTime}"/>
+                                <GridViewColumn Width="90" Header="{x:Static sr:Resource.Price}" DisplayMemberBinding="{Binding Price}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+                <Grid Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Center">
+                    <Canvas VerticalAlignment="Center">
+                        <Line X1="0" Y1="0" X2="0" Y2="636" Stroke="{StaticResource BlackColor}" StrokeThickness="1px"/>
+                    </Canvas>
+                </Grid>
+                <Grid Grid.Column="3" Background="{StaticResource LoginBackgroundColor}">
+                    <StackPanel Margin="0,20,0,0">
+                        <Grid Width="450" Height="350" VerticalAlignment="Top" HorizontalAlignment="Center">
+                            <Image Source="{Binding SelectGoodsInfo.Image}" Stretch="Fill"/>
+                        </Grid>
+                        <WrapPanel Margin="15,20,0,0" Height="25" HorizontalAlignment="Left">
+                            <TextBlock>
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                        <Setter Property="FontSize" Value="14"/>
+                                        <Setter Property="Width" Value="70"/>
+                                        <Setter Property="Text" Value="{x:Static sr:Resource.Name}"/>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <TextBlock>
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                        <Setter Property="FontSize" Value="12"/>
+                                        <Setter Property="Width" Value="10"/>
+                                        <Setter Property="Text" Value="{x:Static sr:Resource.Separator}"/>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <TextBlock>
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                        <Setter Property="FontSize" Value="14"/>
+                                        <Setter Property="Width" Value="450"/>
+                                        <Setter Property="Text" Value="{Binding SelectGoodsInfo.GoodsName}"/>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </WrapPanel>
+                        <WrapPanel Margin="15,5,0,0" Height="25" HorizontalAlignment="Left">
+                            <TextBlock>
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                        <Setter Property="FontSize" Value="14"/>
+                                        <Setter Property="Width" Value="70"/>
+                                        <Setter Property="Text" Value="{x:Static sr:Resource.Type}"/>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <TextBlock>
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                        <Setter Property="FontSize" Value="12"/>
+                                        <Setter Property="Width" Value="10"/>
+                                        <Setter Property="Text" Value="{x:Static sr:Resource.Separator}"/>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <TextBlock>
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                        <Setter Property="FontSize" Value="14"/>
+                                        <Setter Property="Width" Value="450"/>
+                                        <Setter Property="Text" Value="{Binding SelectGoodsInfo.Type, Converter={StaticResource EnumToGoodsJewelryTypeConverter}}"/>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </WrapPanel>
+                        <WrapPanel Margin="15,5,0,0" Height="25" HorizontalAlignment="Left">
+                            <TextBlock>
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                        <Setter Property="FontSize" Value="14"/>
+                                        <Setter Property="Width" Value="70"/>
+                                        <Setter Property="Text" Value="{x:Static sr:Resource.StartPrice}"/>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <TextBlock>
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                        <Setter Property="FontSize" Value="12"/>
+                                        <Setter Property="Width" Value="10"/>
+                                        <Setter Property="Text" Value="{x:Static sr:Resource.Separator}"/>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <TextBlock>
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                        <Setter Property="FontSize" Value="14"/>
+                                        <Setter Property="Width" Value="100"/>
+                                        <Setter Property="Text" Value="{Binding SelectGoodsInfo.StartPrice}"/>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <TextBlock>
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                        <Setter Property="FontSize" Value="14"/>
+                                        <Setter Property="Width" Value="70"/>
+                                        <Setter Property="Text" Value="ETH"/>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </WrapPanel>
+                        <WrapPanel Margin="15,5,0,0" Height="25" HorizontalAlignment="Left">
+                            <TextBlock>
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                        <Setter Property="FontSize" Value="14"/>
+                                        <Setter Property="Width" Value="70"/>
+                                        <Setter Property="Text" Value="판매자"/>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <TextBlock>
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                        <Setter Property="FontSize" Value="12"/>
+                                        <Setter Property="Width" Value="10"/>
+                                        <Setter Property="Text" Value="{x:Static sr:Resource.Separator}"/>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <TextBlock>
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                        <Setter Property="FontSize" Value="14"/>
+                                        <Setter Property="Width" Value="450"/>
+                                        <Setter Property="Text" Value="{Binding SelectGoodsInfo.Owner}"/>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </WrapPanel>
+                        <WrapPanel Margin="15,5,0,0" Height="25" HorizontalAlignment="Left">
+                            <TextBlock>
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                        <Setter Property="FontSize" Value="14"/>
+                                        <Setter Property="Width" Value="70"/>
+                                        <Setter Property="Text" Value="{x:Static sr:Resource.LastDay}"/>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <TextBlock>
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                        <Setter Property="FontSize" Value="12"/>
+                                        <Setter Property="Width" Value="10"/>
+                                        <Setter Property="Text" Value="{x:Static sr:Resource.Separator}"/>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <TextBlock>
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                        <Setter Property="FontSize" Value="14"/>
+                                        <Setter Property="Width" Value="450"/>
+                                        <Setter Property="Text" Value="{Binding SelectGoodsInfo.EndTime}"/>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </WrapPanel>
+                        <WrapPanel Margin="15,5,0,0" Height="25" HorizontalAlignment="Left">
+                            <TextBlock>
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                        <Setter Property="FontSize" Value="14"/>
+                                        <Setter Property="Width" Value="70"/>
+                                        <Setter Property="Text" Value="{x:Static sr:Resource.Appraisal}"/>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <TextBlock>
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                        <Setter Property="FontSize" Value="12"/>
+                                        <Setter Property="Width" Value="10"/>
+                                        <Setter Property="Text" Value="{x:Static sr:Resource.Separator}"/>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <TextBlock>
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                        <Setter Property="FontSize" Value="14"/>
+                                        <Setter Property="Width" Value="450"/>
+                                        <Setter Property="Text" Value="{x:Static sr:Resource.isntAppraisal}"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding SelectGoodsInfo.Appraisal}" Value="True">
+                                                <Setter Property="Text" Value="{x:Static sr:Resource.isAppraisal}" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </WrapPanel>
+                        <WrapPanel Margin="15,5,0,0" Height="25" HorizontalAlignment="Left">
+                            <TextBlock>
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                        <Setter Property="FontSize" Value="14"/>
+                                        <Setter Property="Width" Value="70"/>
+                                        <Setter Property="Text" Value="{x:Static sr:Resource.Rare}"/>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <TextBlock>
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                        <Setter Property="FontSize" Value="12"/>
+                                        <Setter Property="Width" Value="10"/>
+                                        <Setter Property="Text" Value="{x:Static sr:Resource.Separator}"/>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <TextBlock>
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                        <Setter Property="FontSize" Value="14"/>
+                                        <Setter Property="Width" Value="450"/>
+                                        <Setter Property="Text" Value="{Binding SelectGoodsInfo.Rare}"/>
+                                        <Setter Property="Text" Value="{Binding SelectGoodsInfo.Rare, Converter={StaticResource EnumToGoodsRareTypeConverter}}"/>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </WrapPanel>
+                        <WrapPanel Margin="15,5,0,0" Height="25" HorizontalAlignment="Left">
+                            <TextBlock>
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                        <Setter Property="FontSize" Value="14"/>
+                                        <Setter Property="Width" Value="70"/>
+                                        <Setter Property="Text" Value="{x:Static sr:Resource.Desc}"/>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <TextBlock>
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                        <Setter Property="FontSize" Value="12"/>
+                                        <Setter Property="Width" Value="10"/>
+                                        <Setter Property="Text" Value="{x:Static sr:Resource.Separator}"/>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <TextBlock>
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                        <Setter Property="FontSize" Value="14"/>
+                                        <Setter Property="Width" Value="450"/>
+                                        <Setter Property="Text" Value="{Binding SelectGoodsInfo.Description}"/>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </WrapPanel>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+            <WrapPanel Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Button>
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource CheckButtonStyle}">
+                            <Setter Property="Content" Value="{x:Static sr:Resource.Bid}"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectGoodsInfo.Finalized}" Value="True">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding SelectGoodsInfo.Active}" Value="False">
+                                    <Setter Property="Content" Value="경매확정"/>
+                                    <Setter Property="Command" Value="{Binding FinalizeAuction}"/>
+                                </DataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding ="{Binding SelectGoodsInfo.Active}" Value="True"/>
+                                        <Condition Binding ="{Binding SelectGoodsInfo.IsOwner}" Value="False"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Content" Value="입찰"/>
+                                    <Setter Property="Command" Value="{Binding BidOnAuctionCommand}"/>
+                                </MultiDataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding ="{Binding SelectGoodsInfo.Active}" Value="True"/>
+                                        <Condition Binding ="{Binding SelectGoodsInfo.IsOwner}" Value="True"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button Command="{Binding DataContext.ChageMainViewCommand, ElementName=main}" CommandParameter="{x:Static View:ParameterResource.Home}" Margin="10,0,0,0">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource CancelButtonStyle}">
+                            <Setter Property="Content" Value="닫기"/>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </WrapPanel>
+        </Grid>
+    </ext:BusyIndicator>
+</UserControl>

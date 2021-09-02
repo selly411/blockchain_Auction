@@ -1,0 +1,58 @@
+﻿<Window x:Class="AuctionSystem.UsingBlockChain.View.MainWindowView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ext="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:local="clr-namespace:AuctionSystem.UsingBlockChain"
+        xmlns:sr="clr-namespace:AuctionSystem.UsingBlockChain.StringResource"
+        xmlns:View="clr-namespace:AuctionSystem.UsingBlockChain.View"
+        mc:Ignorable="d"
+        WindowStyle="None" ResizeMode="NoResize" Background="Transparent" AllowsTransparency="True"
+        Title="ON-Line Auction System" Height="800" Width="1200" MinHeight="800" MinWidth="1200">
+    <Window.Resources>
+        <DataTemplate x:Key="MainViewTemplate" DataType="{x:Type ContentControl}">
+            <Grid>
+                <View:MainView/>
+            </Grid>
+        </DataTemplate>
+    </Window.Resources>
+    <Border>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="32"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="22"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Background="{StaticResource TabColor}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" MinWidth="61"/>
+                </Grid.ColumnDefinitions>
+                <Rectangle x:Name="moveRectangle" PreviewMouseDown="moveRectangle_PreviewMouseDown" Fill="Transparent" />
+                <WrapPanel x:Name="wrapPanel" Width="Auto" VerticalAlignment="Center" Height="22" Margin="0,4,20,4">
+                    <ContentControl Content="{StaticResource LogoPath}" Margin="3,0,10,0" FontWeight="Bold"/>
+                    <TextBlock>
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource TitleTextBlockStyle}">
+                                <Setter Property="Text" Value="{x:Static sr:Resource.AuctionSystem}"/>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </WrapPanel>
+                <Grid Grid.Column="1">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0">
+                        <Button x:Name="minimizeButton" Style="{StaticResource WindowButtonStyle}" Content="0" Click="MinimizeClick"/>
+                        <Button x:Name="closeButton" Style="{StaticResource WindowButtonStyle}" Content="r" Click="CloseClick"/>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="1" Background="{StaticResource WhiteColor}">
+                <ContentControl Content="{Binding }" ContentTemplate="{DynamicResource MainViewTemplate}" Grid.ColumnSpan="4" />
+            </Grid>
+            <Grid Grid.Row="2" Background="{StaticResource BlackColor}">
+                <TextBlock x:Name="bottomBar" Style="{StaticResource BottomTitleTextBlockStyle}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0" Text="{x:Static sr:Resource.Copyright}"/>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

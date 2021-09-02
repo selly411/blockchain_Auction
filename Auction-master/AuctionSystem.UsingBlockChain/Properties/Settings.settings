@@ -1,0 +1,15 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="AuctionSystem.UsingBlockChain.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="DeedAddress" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0xD5CdA80bf9c5f943c8e8D0482A44DF996A4DC610</Value>
+    </Setting>
+    <Setting Name="AuctionAddress" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0x0b2daB520303d802F511f4E300bB8AB9B1e41b54</Value>
+    </Setting>
+    <Setting Name="JsonRPCEndpoint" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://ropsten.infura.io/v3/87d755a56b6149c69a2e570264858c44</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

@@ -1,0 +1,357 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Admin" xml:space="preserve">
+    <value>관리자</value>
+  </data>
+  <data name="Appraisal" xml:space="preserve">
+    <value>감정서</value>
+  </data>
+  <data name="AuctionSystem" xml:space="preserve">
+    <value>Mega Auction</value>
+  </data>
+  <data name="Before" xml:space="preserve">
+    <value>경매 예정</value>
+  </data>
+  <data name="Copyright" xml:space="preserve">
+    <value>ⓒCopyright MegaAuction Inc. All right reserved.</value>
+  </data>
+  <data name="Delivery" xml:space="preserve">
+    <value>베송중</value>
+  </data>
+  <data name="DelUser" xml:space="preserve">
+    <value>탈퇴</value>
+  </data>
+  <data name="Deposit" xml:space="preserve">
+    <value>입금</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>낙찰</value>
+  </data>
+  <data name="EndToCurrentDay" xml:space="preserve">
+    <value>D-</value>
+  </data>
+  <data name="Failed" xml:space="preserve">
+    <value>Failed</value>
+  </data>
+  <data name="GoodsCurrentPrice" xml:space="preserve">
+    <value>경매 최고가 (ETH)</value>
+  </data>
+  <data name="GoodsName" xml:space="preserve">
+    <value>상품명</value>
+  </data>
+  <data name="GoodsState" xml:space="preserve">
+    <value>경매 상태</value>
+  </data>
+  <data name="GoodsType" xml:space="preserve">
+    <value>보석 타입</value>
+  </data>
+  <data name="Id" xml:space="preserve">
+    <value>사용자 ID</value>
+  </data>
+  <data name="Ing" xml:space="preserve">
+    <value>경매 진행 중</value>
+  </data>
+  <data name="JewelryTypeOrder" xml:space="preserve">
+    <value>보석종류</value>
+  </data>
+  <data name="Join" xml:space="preserve">
+    <value>회원가입</value>
+  </data>
+  <data name="LastDay" xml:space="preserve">
+    <value>마감일</value>
+  </data>
+  <data name="LastDayOrder" xml:space="preserve">
+    <value>마감임박순</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Loading</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>로그아웃</value>
+  </data>
+  <data name="LowPriceOrder" xml:space="preserve">
+    <value>최저가순</value>
+  </data>
+  <data name="Modify" xml:space="preserve">
+    <value>수정</value>
+  </data>
+  <data name="Mypage" xml:space="preserve">
+    <value>회원정보</value>
+  </data>
+  <data name="Normal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="NormalUser" xml:space="preserve">
+    <value>일반</value>
+  </data>
+  <data name="Pwd" xml:space="preserve">
+    <value>사용자 패스워드</value>
+  </data>
+  <data name="Rare" xml:space="preserve">
+    <value>희귀도</value>
+  </data>
+  <data name="RareOrder" xml:space="preserve">
+    <value>희귀도순</value>
+  </data>
+  <data name="Separator" xml:space="preserve">
+    <value>:</value>
+  </data>
+  <data name="StartDay" xml:space="preserve">
+    <value>등록일</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>등록</value>
+  </data>
+  <data name="Trading" xml:space="preserve">
+    <value>상세 보기</value>
+  </data>
+  <data name="TradingBefore" xml:space="preserve">
+    <value>경매 준비중</value>
+  </data>
+  <data name="TradingDone" xml:space="preserve">
+    <value>경매 종료</value>
+  </data>
+  <data name="VIP" xml:space="preserve">
+    <value>VIP</value>
+  </data>
+  <data name="WelcomeMessage" xml:space="preserve">
+    <value>온라인 경매 시스템에 접속 하셧습니다.</value>
+  </data>
+  <data name="WelcomeUser" xml:space="preserve">
+    <value> 님 환영합니다.</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>주소</value>
+  </data>
+  <data name="AddressSearch" xml:space="preserve">
+    <value>주소찾기</value>
+  </data>
+  <data name="BidPrice" xml:space="preserve">
+    <value>낙찰가</value>
+  </data>
+  <data name="BidStatus" xml:space="preserve">
+    <value>상태</value>
+  </data>
+  <data name="BidTime" xml:space="preserve">
+    <value>입찰 시간</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="Check" xml:space="preserve">
+    <value>확인</value>
+  </data>
+  <data name="CurrentPrice" xml:space="preserve">
+    <value>현재가</value>
+  </data>
+  <data name="DeadlineTime" xml:space="preserve">
+    <value>남은기간(일)</value>
+  </data>
+  <data name="EndTime" xml:space="preserve">
+    <value>경매마감</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>이름</value>
+  </data>
+  <data name="StartPrice" xml:space="preserve">
+    <value>시작가</value>
+  </data>
+  <data name="UserLevel" xml:space="preserve">
+    <value>등급</value>
+  </data>
+  <data name="Desc" xml:space="preserve">
+    <value>설명</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>검색</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>보석종류</value>
+  </data>
+  <data name="Bid" xml:space="preserve">
+    <value>입찰</value>
+  </data>
+  <data name="BidDetail" xml:space="preserve">
+    <value>입찰 기록</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>입찰 가격</value>
+  </data>
+  <data name="BidCount" xml:space="preserve">
+    <value>경매 횟수</value>
+  </data>
+  <data name="DepositDay" xml:space="preserve">
+    <value>입금 마감일</value>
+  </data>
+  <data name="InputMessage" xml:space="preserve">
+    <value>입찰가를 입력 해 주세요.</value>
+  </data>
+  <data name="MaxPrice" xml:space="preserve">
+    <value>최고가</value>
+  </data>
+  <data name="Amethyst" xml:space="preserve">
+    <value>자수정</value>
+  </data>
+  <data name="Aquamarine" xml:space="preserve">
+    <value>아쿠아마린</value>
+  </data>
+  <data name="Dia" xml:space="preserve">
+    <value>다이아몬드</value>
+  </data>
+  <data name="Emerald" xml:space="preserve">
+    <value>에메랄드</value>
+  </data>
+  <data name="Etc" xml:space="preserve">
+    <value>기타</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>상</value>
+  </data>
+  <data name="isAppraisal" xml:space="preserve">
+    <value>감정 받음</value>
+  </data>
+  <data name="isntAppraisal" xml:space="preserve">
+    <value>감정 받지 않음</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>하</value>
+  </data>
+  <data name="Middle" xml:space="preserve">
+    <value>중</value>
+  </data>
+  <data name="Opal" xml:space="preserve">
+    <value>오팔</value>
+  </data>
+  <data name="Ruby" xml:space="preserve">
+    <value>루비</value>
+  </data>
+  <data name="Sapphire" xml:space="preserve">
+    <value>사파이어</value>
+  </data>
+  <data name="Tanzanite" xml:space="preserve">
+    <value>탄자니아</value>
+  </data>
+  <data name="CreateAuction" xml:space="preserve">
+    <value>경매 올리기</value>
+  </data>
+</root>

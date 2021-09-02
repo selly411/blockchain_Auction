@@ -1,0 +1,224 @@
+﻿<UserControl x:Class="AuctionSystem.UsingBlockChain.View.UserView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sr="clr-namespace:AuctionSystem.UsingBlockChain.StringResource"
+        xmlns:View="clr-namespace:AuctionSystem.UsingBlockChain.View"
+        xmlns:Converter="clr-namespace:AuctionSystem.UsingBlockChain.Converter"
+        mc:Ignorable="d"
+        Width="1200" Height="746" MinWidth="1200" MinHeight="746">
+    <UserControl.Resources>
+        <Converter:EnumToGoodsTypeConverter x:Key="EnumToGoodsTypeConverter"/>
+        <Converter:EnumToUserLevelTypeConverter x:Key="EnumToUserLevelTypeConverter"/>
+    </UserControl.Resources>
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="30"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="110"/>
+                <RowDefinition Height="250"/>
+                <RowDefinition Height="250"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <WrapPanel Grid.Row="1" HorizontalAlignment="Right">
+                <Button Command="{Binding DataContext.ChageMainViewCommand, ElementName=main}" CommandParameter="{x:Static View:ParameterResource.Login}" Width="70">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource UserButtonStyle}">
+                            <Setter Property="Content" Value="{x:Static sr:Resource.Submit}"/>
+                            <Setter Property="Visibility" Value="Hidden"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding CurrentUserInfo.UserLevel}" Value="Admin">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <!--<Button Command="{Binding DataContext.ChageMainViewCommand, ElementName=main}" CommandParameter="{x:Static View:ParameterResource.Login}" Width="70" Margin="10,0,0,0">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource UserButtonStyle}">
+                            <Setter Property="Content" Value="{x:Static sr:Resource.Modify}"/>
+                        </Style>
+                    </Button.Style>
+                </Button>-->
+                <Button Command="{Binding DataContext.ChageMainViewCommand, ElementName=main}" CommandParameter="{x:Static View:ParameterResource.PrivateKey}" Width="150" Margin="10,0,0,0">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource UserButtonStyle}">
+                            <Setter Property="Content" Value="개인키 가져오기"/>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </WrapPanel>
+            <StackPanel Grid.Row="2" Margin="0,10,0,0">
+                <WrapPanel Height="20">
+                    <TextBlock>
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                <Setter Property="FontSize" Value="14"/>
+                                <Setter Property="Width" Value="70"/>
+                                <Setter Property="Text" Value="{x:Static sr:Resource.Name}"/>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                    <!--<TextBlock>
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                <Setter Property="FontSize" Value="14"/>
+                                <Setter Property="Width" Value="400"/>
+                                <Setter Property="Text" Value="{Binding CurrentUserInfo.UserName}"/>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>-->
+                    <TextBox Width="400" 
+                             FontSize="14"
+                             Text="{Binding CurrentUserInfo.UserName}" 
+                             IsReadOnly="True" 
+                             BorderThickness="0"
+                             TextWrapping="Wrap"/>
+                </WrapPanel>
+                <Canvas VerticalAlignment="Center" Margin="0,5,0,0">
+                    <Line X1="0" Y1="0" X2="600" Y2="0" Stroke="{StaticResource BlackColor}" StrokeThickness="1px"/>
+                </Canvas>
+                <WrapPanel Height="20" Margin="0,10,0,0">
+                    <TextBlock>
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                <Setter Property="FontSize" Value="14"/>
+                                <Setter Property="Width" Value="70"/>
+                                <Setter Property="Text" Value="{x:Static sr:Resource.UserLevel}"/>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                    <TextBlock>
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                <Setter Property="FontSize" Value="14"/>
+                                <Setter Property="Width" Value="200"/>
+                                <Setter Property="Text" Value="{Binding CurrentUserInfo.UserLevel, Converter={StaticResource EnumToUserLevelTypeConverter}}"/>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </WrapPanel>
+                <Canvas VerticalAlignment="Center" Margin="0,5,0,0">
+                    <Line X1="0" Y1="0" X2="600" Y2="0" Stroke="{StaticResource BlackColor}" StrokeThickness="1px"/>
+                </Canvas>
+                <WrapPanel Height="20" Margin="0,10,0,0">
+                    <TextBlock>
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                <Setter Property="FontSize" Value="14"/>
+                                <Setter Property="Width" Value="70"/>
+                                <Setter Property="Text" Value="{x:Static sr:Resource.Address}"/>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                    <TextBlock>
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                                <Setter Property="FontSize" Value="14"/>
+                                <Setter Property="Width" Value="400"/>
+                                <Setter Property="Text" Value="{Binding CurrentUserInfo.Address}"/>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </WrapPanel>
+                <Canvas VerticalAlignment="Center" Margin="0,5,0,0">
+                    <Line X1="0" Y1="0" X2="600" Y2="0" Stroke="{StaticResource BlackColor}" StrokeThickness="1px"/>
+                </Canvas>
+            </StackPanel>
+            <StackPanel Grid.Row="3" Margin="0,20,0,10">
+                <TextBlock>
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                            <Setter Property="FontSize" Value="18"/>
+                            <Setter Property="Text" Value="경매 입찰"/>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <ListView Grid.Row="2" Style="{StaticResource ListViewStyle}" Margin="0,20,0,0" ItemsSource="{Binding UserBiddingList}">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource GridViewItemStyle}"/>
+                    </ListView.ItemContainerStyle>
+                    <ListView.View>
+                        <GridView ColumnHeaderContainerStyle="{StaticResource GridViewColumnHeaderStyle}">
+                            <GridViewColumn Width="100" Header="">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ContentControl>
+                                            <ContentControl.Style>
+                                                <Style TargetType="ContentControl">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsBid}" Value="true">
+                                                            <Setter Property="Content" Value="{StaticResource Crown}"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </ContentControl.Style>
+                                        </ContentControl>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="400" Header="{x:Static sr:Resource.GoodsName}" DisplayMemberBinding="{Binding GoodsName}"/>
+                            <GridViewColumn Width="160" Header="{x:Static sr:Resource.StartPrice}" DisplayMemberBinding="{Binding StartPrice}"/>
+                            <GridViewColumn Width="160" Header="{x:Static sr:Resource.MaxPrice}" DisplayMemberBinding="{Binding BidPrice}"/>
+                            <GridViewColumn Width="160" Header="{x:Static sr:Resource.Price}" DisplayMemberBinding="{Binding MyPrice}"/>
+                            <GridViewColumn Width="160" Header="{x:Static sr:Resource.DeadlineTime}" DisplayMemberBinding="{Binding Dday}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </StackPanel>
+            <StackPanel Grid.Row="4" Margin="0,20,0,10">
+                <TextBlock>
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource NormalTextBlockStyle}">
+                            <Setter Property="FontSize" Value="18"/>
+                            <Setter Property="Text" Value="경매 내역"/>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <ListView Grid.Row="2" Style="{StaticResource ListViewStyle}" Margin="0,20,0,0" ItemsSource="{Binding AuctionHistoryList}">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource GridViewItemStyle}"/>
+                    </ListView.ItemContainerStyle>
+                    <ListView.View>
+                        <GridView ColumnHeaderContainerStyle="{StaticResource GridViewColumnHeaderStyle}" >
+                            <!--
+                            <GridViewColumn Width="100" Header="{x:Static sr:Resource.GoodsState}" DisplayMemberBinding="{Binding State}"/>
+                            -->
+                            <GridViewColumn Width="100">
+                                <GridViewColumnHeader Content="{x:Static sr:Resource.GoodsState}"/>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding State, Converter={StaticResource EnumToGoodsTypeConverter}}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="400" Header="{x:Static sr:Resource.GoodsName}" DisplayMemberBinding="{Binding GoodsName}"/>
+                            <GridViewColumn Width="160" Header="{x:Static sr:Resource.LastDay}" DisplayMemberBinding="{Binding EndTime}"/>
+                            <GridViewColumn Width="160" Header="{x:Static sr:Resource.DepositDay}" DisplayMemberBinding="{Binding DeadLineTime}"/>
+                            <GridViewColumn Width="160" Header="{x:Static sr:Resource.BidCount}" DisplayMemberBinding="{Binding LastBidOrder}"/>
+                            <GridViewColumn Width="160" Header="{x:Static sr:Resource.BidPrice}" DisplayMemberBinding="{Binding BidPrice}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </StackPanel>
+            <WrapPanel Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Button Command="{Binding DataContext.ChageMainViewCommand, ElementName=main}" CommandParameter="{x:Static View:ParameterResource.Home}">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource CheckButtonStyle}">
+                            <Setter Property="Content" Value="{x:Static sr:Resource.Check}"/>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </WrapPanel>
+        </Grid>
+    </Grid>
+</UserControl>

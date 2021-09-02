@@ -1,0 +1,1 @@
+remixd -s F:\ethereum\project\contracts\ --remix-ide https://remix.ethereum.org

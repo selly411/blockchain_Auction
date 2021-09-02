@@ -1,0 +1,80 @@
+﻿<UserControl x:Class="AuctionSystem.UsingBlockChain.View.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vr="clr-namespace:AuctionSystem.UsingBlockChain.View"
+        xmlns:View="clr-namespace:AuctionSystem.UsingBlockChain.View"
+        mc:Ignorable="d"
+        Width="1200" Height="746" MinWidth="1200" MinHeight="746"
+        x:Name="main">
+    <UserControl.Resources>
+        <DataTemplate x:Key="LoginViewTemplate" DataType="{x:Type ContentControl}">
+            <Grid>
+                <View:LoginView/>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="HomeViewTemplate" DataType="{x:Type ContentControl}">
+            <Grid>
+                <View:HomeView/>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="UserViewTemplate" DataType="{x:Type ContentControl}">
+            <Grid>
+                <View:UserView/>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="EachGoodsViewTemplate" DataType="{x:Type ContentControl}">
+            <Grid>
+                <View:EachGoodsView/>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="BidInputViewTemplate" DataType="{x:Type ContentControl}">
+            <Grid>
+                <View:BidInputView/>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="CreateAuctionViewTemplate" DataType="{x:Type ContentControl}">
+            <Grid>
+                <View:CreateAuctionView/>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="PrivateKeyViewTemplate" DataType="{x:Type ContentControl}">
+            <Grid>
+                <View:PrivateKeyView/>
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid Background="{StaticResource WhiteColor}">
+        <ContentControl Content="{Binding}">
+            <ContentControl.Style>
+                <Style TargetType="ContentControl">
+                    <Setter Property="ContentTemplate" Value="{DynamicResource HomeViewTemplate}"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ViewStatus}" Value="{x:Static vr:ParameterResource.Login}">
+                            <Setter Property="ContentTemplate" Value="{DynamicResource LoginViewTemplate}"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ViewStatus}" Value="{x:Static vr:ParameterResource.Home}">
+                            <Setter Property="ContentTemplate" Value="{DynamicResource HomeViewTemplate}"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ViewStatus}" Value="{x:Static vr:ParameterResource.User}">
+                            <Setter Property="ContentTemplate" Value="{DynamicResource UserViewTemplate}"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ViewStatus}" Value="{x:Static vr:ParameterResource.EachGoods}">
+                            <Setter Property="ContentTemplate" Value="{DynamicResource EachGoodsViewTemplate}"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ViewStatus}" Value="{x:Static vr:ParameterResource.BidInput}">
+                            <Setter Property="ContentTemplate" Value="{DynamicResource BidInputViewTemplate}"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ViewStatus}" Value="{x:Static vr:ParameterResource.CreateAuction}">
+                            <Setter Property="ContentTemplate" Value="{DynamicResource CreateAuctionViewTemplate}"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ViewStatus}" Value="{x:Static vr:ParameterResource.PrivateKey}">
+                            <Setter Property="ContentTemplate" Value="{DynamicResource PrivateKeyViewTemplate}"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ContentControl.Style>
+        </ContentControl>
+    </Grid>
+</UserControl>
